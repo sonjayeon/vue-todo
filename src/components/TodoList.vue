@@ -8,7 +8,9 @@ export default {
   created() {
     if (localStorage.length > 0) {
       for (var i = 0; i < localStorage.length; i++) {
-          this.todoItems.push(localStorage.key(i));
+        if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        }
       }
     }
   },
@@ -23,14 +25,19 @@ export default {
 </script>
 <template>
   <section>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem" class="shadow">
-        {{ todoItem }}
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
-          <font-awesome-icon :icon="['far', 'fa-trash-alt']" />
+        <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem)">
+          <font-awesome-icon :icon="['fasr', 'check']" />
+        </span>
+        <span v-bind:class="{textCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">
+          {{ todoItem }}
+        </span>
+        <span class="removeBtn" type="button" v-on:click="removeTodo(todoItem, index)">
+          <font-awesome-icon :icon="['far', 'fa-trash-alt']" aria-hidden="true"/>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
@@ -51,10 +58,13 @@ li {
   background: white;
   border-radius: 5px;
 }
-
 .removeBtn {
   margin-left: auto;
   color: #de4343;
+}
+.checkBtn{
+  color: cornflowerblue;
+  padding-right: 6px;
 }
 
 </style>

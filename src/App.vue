@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <TodoHeader />
+    <TodoHeader/>
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
     <TodoList v-bind:propsdata="todoItems" v-on:removeTodo="removeTodo"></TodoList>
     <TodoFooter v-on:removeAll="clearAll"></TodoFooter>
   </div>
 </template>
-
 <script>
 
 import TodoHeader from "@/components/TodoHeader.vue";
@@ -44,10 +43,10 @@ export default {
   },
   name: 'App',
   components: {
-    'TodoHeader':TodoHeader,
-    'TodoInput':TodoInput,
-    'TodoList':TodoList,
-    'TodoFooter':TodoFooter
+    'TodoHeader': TodoHeader,
+    'TodoInput': TodoInput,
+    'TodoList': TodoList,
+    'TodoFooter': TodoFooter
   }
 }
 </script>
@@ -57,10 +56,12 @@ body {
   text-align: center;
   background-color: #F6F6F6;
 }
+
 input {
   border-style: groove;
   width: 200px;
 }
+
 button {
   border-style: groove;
 }
